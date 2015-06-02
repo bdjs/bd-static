@@ -1,0 +1,32 @@
+{
+  "name": "bd-static",
+  "version": "0.1.0",
+  "description": "bd.js static middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bdjs/bd-static.git"
+  },
+  "keywords": [
+    "koa-static",
+    "koa",
+    "bd",
+    "static"
+  ],
+  "author": "mdemo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bdjs/bd-static/issues"
+  },
+  "homepage": "https://github.com/bdjs/bd-static",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "koa-send": "^1.3.1"
+  },
+  "devDependencies": {
+    "koa": "^0.21.0"
+  }
+}
