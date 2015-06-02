@@ -44,7 +44,7 @@ function serve(root, route, opts) {
   routes[route] = opts;
   return function *serve(next) {
     yield* next;
-    console.log(this.path);
+    debug('path: "%s"', this.path);
     var route = this.path.split('/')[1] || '/';
     if (this.method != 'HEAD' && this.method != 'GET') return;
     // response is already handled
