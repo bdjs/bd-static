@@ -3,24 +3,24 @@
  * Created by mds on 15/6/2.
  */
 
-'use strict';
+'use strict'
 
 /**
  * Module dependencies.
  */
 
-var resolve = require('path').resolve;
-var assert = require('assert');
-var debug = require('debug')('koa-static');
-var send = require('koa-send');
+var resolve = require('path').resolve
+var assert = require('assert')
+var debug = require('debug')('koa-static')
+var send = require('koa-send')
 
 /**
  * Expose `serve()`.
  */
 
-module.exports = serve;
+module.exports = serve
 
-var routes = {};
+var routes = {}
 
 /**
  * Serve static files from `root`.
@@ -31,25 +31,23 @@ var routes = {};
  * @api public
  */
 
-function serve(root, route, opts) {
-  opts = opts || {};
-  route = route || '/';
-  assert(root, 'root directory is required to serve files');
+function serve (root, route = '/', opts = {}) {
+  assert(root, 'root directory is required to serve files')
 
   // options
-  debug('static "%s" "%s" %j', route, root, opts);
-  opts.root = resolve(root);
-  opts.index = opts.index || 'index.html';
+  debug('static "%s" "%s" %j', route, root, opts)
+  opts.root = resolve(root)
+  opts.index = opts.index || 'index.html'
 
-  routes[route] = opts;
-  return function *serve(next) {
-    yield* next;
-    debug('path: "%s"', this.path);
-    var route = this.path.split('/')[1] || '/';
-    if (this.method != 'HEAD' && this.method != 'GET') return;
+  routes[route] = opts
+  return async function serve (next) {
+    await next()
+    debug('path: "%s"', this.path)
+    var route = this.path.split('/')[1] || '/'
+    if (this.method !== 'HEAD' && this.method !== 'GET') return
     // response is already handled
-    if (this.body != null || this.status != 404) return;
+    if (this.body !== null || this.status !== 404) return
 
-    yield send(this, this.path.slice(1 + route.length) || '/', routes[route]);
-  };
+    await send(this, this.path.slice(1 + route.length) || '/', routes[route])
+  }
 }
