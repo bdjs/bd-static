@@ -1,6 +1,7 @@
 /**
  * bd-static - index.js
  * Created by mds on 15/6/2.
+ * Updated by jiasm on 18/04/19
  */
 
 'use strict'
@@ -9,18 +10,15 @@
  * Module dependencies.
  */
 
-var resolve = require('path').resolve
-var assert = require('assert')
-var debug = require('debug')('koa-static')
-var send = require('koa-send')
+const resolve = require('path').resolve
+const assert = require('assert')
+const send = require('koa-send')
 
 /**
  * Expose `serve()`.
  */
 
-module.exports = serve
-
-var routes = {}
+const routes = {}
 
 /**
  * Serve static files from `root`.
@@ -31,18 +29,16 @@ var routes = {}
  * @api public
  */
 
-function serve (root, route = '/', opts = {}) {
+module.exports = function serve (root, route = '/', opts = {}) {
   assert(root, 'root directory is required to serve files')
 
   // options
-  debug('static "%s" "%s" %j', route, root, opts)
   opts.root = resolve(root)
   opts.index = opts.index || 'index.html'
 
   routes[route] = opts
   return async function serve (next) {
     await next()
-    debug('path: "%s"', this.path)
     var route = this.path.split('/')[1] || '/'
     if (this.method !== 'HEAD' && this.method !== 'GET') return
     // response is already handled
