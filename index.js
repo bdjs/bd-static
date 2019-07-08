@@ -48,7 +48,7 @@ function serve(root, route, opts) {
     var route = this.path.split('/')[1] || '/';
     if (this.method != 'HEAD' && this.method != 'GET') return;
     // response is already handled
-    if (this.body != null || this.status != 404) return;
+    if (this.body != null || this.status != 404 || !routes[route]) return;
 
     yield send(this, this.path.slice(1 + route.length) || '/', routes[route]);
   };
