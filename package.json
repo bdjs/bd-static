@@ -1,6 +1,6 @@
 {
-  "name": "bd-static",
-  "version": "0.2.0",
+  "name": "bd-static-new",
+  "version": "0.2.1",
   "description": "bd.js static middleware",
   "main": "index.js",
   "scripts": {
